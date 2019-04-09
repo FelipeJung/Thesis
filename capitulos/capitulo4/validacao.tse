@@ -1,0 +1,958 @@
+version = 4.2
+
+//
+// Saved by sw version: 2018.3 SP1
+// Save timestamp: 05-Dec-2018 @ 03:07:53 PM
+//
+
+model "validacao" {
+    configuration {
+        hil_device = "HIL402"
+        hil_configuration_id = 2
+        simulation_method = exact
+        simulation_time_step = auto
+        simulation_discret_scaling = 10
+        dsp_timer_periods = 100e-6, 50e-3
+        ss_calc_method = "systematic elimination"
+        enb_pole_shift = True
+        enb_gds_oversampling = True
+        show_modes = False
+        device_ao_limit_enable = False
+        cpl_stb = False
+        enb_dep_sw_detect = False
+        code_section = "internal memory"
+        data_section = "external memory"
+        sys_sp_rate_1 = 0.0001
+        sys_sp_rate_2 = 0.05
+        sys_real_type_precision = "default"
+        user_real_type_precision = "default"
+        sys_cpu_optimization = "high"
+        user_cpu_optimization = "high"
+    }
+
+    component Subsystem Root {
+        component pas_capacitor C2 {
+            capacitance = "C1"
+        }
+        [
+            position = 8376, 8272
+            rotation = right
+        ]
+
+        component pas_capacitor C3 {
+            capacitance = "Cd"
+        }
+        [
+            position = 8440, 8272
+            rotation = right
+        ]
+
+        component pas_inductor L1 {
+            inductance = "L1_1"
+        }
+        [
+            position = 8304, 8128
+        ]
+
+        component pas_inductor L2 {
+            inductance = "L2_1"
+        }
+        [
+            position = 8496, 8128
+        ]
+
+        component pas_resistor R1 {
+            resistance = "Rd"
+        }
+        [
+            position = 8440, 8192
+            rotation = right
+        ]
+
+        component pas_inductor L3 {
+            inductance = "L1_2"
+        }
+        [
+            position = 8304, 8320
+        ]
+
+        component pas_inductor L4 {
+            inductance = "L2_2"
+        }
+        [
+            position = 8504, 8320
+        ]
+
+        component src_voltage Bus {
+            param_set = ""
+        }
+        [
+            position = 7896, 8224
+            rotation = right
+        ]
+
+        component pas_resistor R2 {
+            resistance = "1e-5"
+        }
+        [
+            position = 7968, 8128
+        ]
+
+        component gen_probe P {
+        }
+        [
+            position = 9272, 8096
+        ]
+
+        component pas_inductor L6 {
+            inductance = "0.003"
+        }
+        [
+            position = 8792, 8128
+        ]
+
+        component gen_probe "THD corrente" {
+        }
+        [
+            position = 8768, 7992
+        ]
+
+        component gen_probe Q {
+        }
+        [
+            position = 9272, 8040
+        ]
+
+        component "core/Voltage Measurement" Vbus {
+            execution_rate = "Ta"
+        }
+        [
+            position = 7816, 8240
+            rotation = right
+            size = 64, 32
+        ]
+
+        component "core/Voltage Measurement" VAB {
+        }
+        [
+            position = 8240, 8224
+            rotation = right
+            size = 64, 32
+        ]
+
+        component "core/Single Phase Inverter" "Single Phase Inverter1" {
+            Sa_bot = "14"
+            Sa_top = "15"
+            Sb_bot = "15"
+            Sb_top = "14"
+            carrier_freq = "100000.0/10"
+            d_time = "0.0000005"
+            execution_rate = "Ts"
+            ref_sig_min_max = "[-1, 1]"
+        }
+        [
+            position = 8112, 8224
+            size = 127, 256
+        ]
+
+        component "core/Single Phase Power Meter" "Single Phase Power Meter1" {
+        }
+        [
+            position = 9144, 8048
+            scale = 1, -1
+            size = 48, 48
+        ]
+
+        component "core/THD Measurement" "THD Measurement1" {
+            exec_1 = "Ta"
+            exec_2 = "0.1"
+            frequency = "60"
+        }
+        [
+            position = 8656, 7992
+            size = 32, 32
+        ]
+
+        component "core/Current Measurement" IL3 {
+            execution_rate = "Ta"
+            sig_output = "True"
+        }
+        [
+            position = 8576, 8128
+            size = 64, 32
+        ]
+
+        component "core/Current RMS" "Corrente RMS" {
+        }
+        [
+            position = 8640, 8128
+            size = 64, 32
+        ]
+
+        component "core/Single Pole Single Throw Contactor" S1 {
+            Sa = "28"
+        }
+        [
+            position = 8704, 8128
+            size = 64, 32
+        ]
+
+        component "core/Voltage RMS" "Rede RMS" {
+        }
+        [
+            position = 8928, 8232
+            rotation = right
+            size = 64, 32
+        ]
+
+        component src_voltage Rede {
+            param_set = ""
+        }
+        [
+            position = 9000, 8240
+            rotation = right
+        ]
+
+        component "core/Voltage Measurement" rede {
+            execution_rate = "inherit"
+            sig_output = "True"
+        }
+        [
+            position = 9072, 8240
+            rotation = right
+            size = 64, 32
+        ]
+
+        component pas_resistor R3 {
+            resistance = "193"
+        }
+        [
+            position = 8840, 8232
+            rotation = right
+        ]
+
+        component src_voltage VBUS {
+            param_set = ""
+        }
+        [
+            position = 8000, 8872
+            rotation = right
+        ]
+
+        component pas_inductor L1_1 {
+            inductance = "L1_1"
+        }
+        [
+            position = 8272, 8784
+        ]
+
+        component pas_inductor L1_2 {
+            inductance = "L1_2"
+        }
+        [
+            position = 8272, 8976
+        ]
+
+        component pas_inductor L2_1 {
+            inductance = "L2_1"
+        }
+        [
+            position = 8464, 8784
+        ]
+
+        component pas_inductor L2_2 {
+            inductance = "L2_2"
+        }
+        [
+            position = 8472, 8976
+        ]
+
+        component pas_capacitor C1 {
+            capacitance = "C1"
+        }
+        [
+            position = 8344, 8928
+            rotation = right
+        ]
+
+        component pas_capacitor Cd {
+            capacitance = "Cd"
+        }
+        [
+            position = 8408, 8928
+            rotation = right
+        ]
+
+        component pas_resistor Rd {
+            resistance = "Rd"
+        }
+        [
+            position = 8408, 8848
+            rotation = right
+        ]
+
+        component pas_resistor RL {
+            resistance = "193"
+        }
+        [
+            position = 8768, 8872
+            rotation = right
+        ]
+
+        component "core/Single Phase Inverter" "Photovoltaic Micro Inverter" {
+            Sa_bot = "14"
+            Sa_top = "15"
+            Sb_bot = "15"
+            Sb_top = "14"
+            carrier_freq = "100000.0/10"
+            ctrl_src = "Internal modulator"
+            d_time = "0.0000005"
+            execution_rate = "5e-6"
+            ref_sig_min_max = "[-1, 1]"
+        }
+        [
+            position = 8144, 8880
+            size = 127, 256
+        ]
+
+        component gen_product Product1 {
+        }
+        [
+            position = 8040, 8648
+        ]
+
+        component gen_gain Gain1 {
+            gain = "-1"
+        }
+        [
+            position = 8144, 8648
+        ]
+
+        component src_sine "Sinusoidal Source1" {
+            execution_rate = "5e-6"
+            frequency = "6"
+        }
+        [
+            position = 7936, 8592
+        ]
+
+        component "core/THD Measurement" "THD Measurement2" {
+            exec_1 = "5e-6"
+            exec_2 = "0.1"
+            frequency = "60"
+        }
+        [
+            position = 8624, 8648
+            size = 32, 32
+        ]
+
+        component "core/Single Pole Single Throw Contactor" S2 {
+            Sa = "28"
+            ctrl_src = "Model"
+        }
+        [
+            position = 8672, 8784
+            size = 64, 32
+        ]
+
+        component "core/Current RMS" "Corrente RMS1" {
+        }
+        [
+            position = 8608, 8784
+            size = 64, 32
+        ]
+
+        component "core/Current Measurement" IL4 {
+            execution_rate = "5e-6"
+            sig_output = "True"
+        }
+        [
+            position = 8544, 8784
+            size = 64, 32
+        ]
+
+        component gen_probe "THD corrente1" {
+        }
+        [
+            position = 8736, 8648
+        ]
+
+        component src_scada_input Chave {
+            execution_rate = "5e-6"
+            format = "int"
+            max = "1"
+            min = "0"
+            signal_type = "int"
+            unit = ""
+        }
+        [
+            position = 8744, 8736
+            scale = -1, 1
+        ]
+
+        component src_scada_input Amplitude_corrente {
+            execution_rate = "5e-6"
+            max = "3"
+            min = "0"
+            unit = ""
+        }
+        [
+            position = 7888, 8656
+        ]
+
+        component src_scada_input Enable {
+            execution_rate = "5e-6"
+            format = "int"
+            max = "1"
+            min = "0"
+            signal_type = "int"
+            unit = ""
+        }
+        [
+            position = 8048, 8712
+        ]
+
+        component gen_probe Ref_corrente {
+        }
+        [
+            position = 8160, 8576
+        ]
+
+        component gen_probe Amp_corrente {
+        }
+        [
+            position = 7992, 8704
+        ]
+
+        tag Goto1 {
+            value = "Ig"
+            scope = global
+            kind = sp
+            direction = in
+        }
+        [
+            position = 8624, 8080
+        ]
+
+        tag Goto2 {
+            value = "Ig"
+            scope = global
+            kind = sp
+            direction = in
+        }
+        [
+            position = 8592, 8736
+        ]
+
+        junction Junction4 pe
+        [
+            position = 8376, 8320
+        ]
+
+        junction Junction5 pe
+        [
+            position = 8440, 8320
+        ]
+
+        junction Junction6 pe
+        [
+            position = 8440, 8128
+        ]
+
+        junction Junction7 pe
+        [
+            position = 8376, 8128
+        ]
+
+        junction Junction18 pe
+        [
+            position = 7896, 8320
+        ]
+
+        junction Junction22 pe
+        [
+            position = 8240, 8128
+        ]
+
+        junction Junction23 pe
+        [
+            position = 8240, 8320
+        ]
+
+        junction Junction27 pe
+        [
+            position = 7896, 8128
+        ]
+
+        junction Junction71 sp
+        [
+            position = 8576, 8080
+        ]
+
+        junction Junction74 sp
+        [
+            position = 8576, 8040
+        ]
+
+        junction Junction69 pe
+        [
+            position = 9000, 8280
+        ]
+
+        junction Junction70 pe
+        [
+            position = 9000, 8192
+        ]
+
+        junction Junction87 pe
+        [
+            position = 8344, 8976
+        ]
+
+        junction Junction88 pe
+        [
+            position = 8408, 8784
+        ]
+
+        junction Junction89 pe
+        [
+            position = 8408, 8976
+        ]
+
+        junction Junction93 pe
+        [
+            position = 8344, 8784
+        ]
+
+        junction Junction94 sp
+        [
+            position = 8096, 8648
+        ]
+
+        junction Junction97 sp
+        [
+            position = 8544, 8736
+        ]
+
+        junction Junction98 sp
+        [
+            position = 8096, 8648
+        ]
+
+        junction Junction99 sp
+        [
+            position = 7944, 8656
+        ]
+
+        junction Junction100 pe
+        [
+            position = 9000, 8192
+        ]
+
+        junction Junction101 pe
+        [
+            position = 9000, 8280
+        ]
+
+        junction Junction102 pe
+        [
+            position = 8840, 8128
+        ]
+
+        junction Junction103 pe
+        [
+            position = 8840, 8320
+        ]
+
+        connect Bus.n_node Junction18 as Connection102
+        connect Bus.p_node Junction27 as Connection3575
+        connect C2.n_node Junction4 as Connection19
+        connect C2.p_node Junction7 as Connection33
+        connect C3.n_node Junction5 as Connection22
+        connect "Corrente RMS.p_node" IL3.n_node as Connection446
+        connect "Corrente RMS.n_node" S1.a_in as Connection447
+        connect Goto1 Junction71 as Connection443
+        connect IL3.p_node L2.n_node as Connection3622
+        connect Junction18 Vbus.n_node as Connection101
+        connect Junction22 L1.p_node as Connection157
+        connect Junction23 "Single Phase Inverter1.b_in" as Connection160
+        connect Junction27 R2.p_node as Connection3576
+        [
+            breakpoints = 7896, 8128
+        ]
+        connect Junction4 L3.n_node as Connection64
+        connect Junction5 Junction4 as Connection21
+        connect Junction6 L2.p_node as Connection25
+        connect Junction7 Junction6 as Connection32
+        connect Junction71 IL3.out as Connection444
+        connect Junction74 Junction71 as Connection456
+        [
+            breakpoints = 8576, 8016; 8576, 8080
+        ]
+        connect L1.n_node Junction7 as Connection31
+        connect L3.p_node Junction23 as Connection159
+        connect L4.p_node Junction5 as Connection67
+        connect P.in "Single Phase Power Meter1.P" as Connection460
+        connect Q.in "Single Phase Power Meter1.Q" as Connection459
+        connect R1.n_node C3.p_node as Connection15
+        connect R1.p_node Junction6 as Connection26
+        connect S1.a_out L6.p_node as Connection519
+        connect "Single Phase Inverter1.neg_out" Junction18 as Connection100
+        connect "Single Phase Inverter1.a_in" Junction22 as Connection156
+        connect "Single Phase Inverter1.pos_out" R2.n_node as Connection168
+        connect "Single Phase Power Meter1.Ia" Junction74 as Connection457
+        connect "THD Measurement1.In" Junction74 as Connection455
+        connect "THD corrente.in" "THD Measurement1.Out" as Connection448
+        connect VAB.p_node Junction22 as Connection158
+        connect VAB.n_node Junction23 as Connection161
+        connect Vbus.p_node Junction27 as Connection3577
+        connect rede.n_node Junction69 as Connection432
+        connect Rede.p_node Junction70 as Connection439
+        connect Junction69 Rede.n_node as Connection433
+        [
+            breakpoints = 9000, 8280; 9000, 8280
+        ]
+        connect Junction70 rede.p_node as Connection440
+        [
+            breakpoints = 9000, 8192; 9000, 8192
+        ]
+        connect rede.out "Single Phase Power Meter1.Va" as Connection3625
+        connect L2_2.p_node Junction89 as Connection3628
+        connect Junction89 Junction87 as Connection3636
+        connect L1_1.n_node Junction93 as Connection3637
+        connect C1.p_node Junction93 as Connection3638
+        connect Rd.p_node Junction88 as Connection3639
+        connect RL.n_node L2_2.n_node as Connection3642
+        connect C1.n_node Junction87 as Connection3643
+        connect Junction87 L1_2.n_node as Connection3645
+        connect Cd.n_node Junction89 as Connection3646
+        connect Rd.n_node Cd.p_node as Connection3647
+        connect Junction88 L2_1.p_node as Connection3648
+        connect Junction93 Junction88 as Connection3656
+        connect VBUS.p_node "Photovoltaic Micro Inverter.pos_out" as Connection3668
+        connect VBUS.n_node "Photovoltaic Micro Inverter.neg_out" as Connection3669
+        connect L1_1.p_node "Photovoltaic Micro Inverter.a_in" as Connection3670
+        connect L1_2.p_node "Photovoltaic Micro Inverter.b_in" as Connection3671
+        connect Enable.out "Photovoltaic Micro Inverter.En" as Connection3672
+        connect Gain1.out "Photovoltaic Micro Inverter.InB" as Connection3675
+        connect Product1.out Junction94 as Connection3676
+        connect Junction94 Gain1.in as Connection3677
+        connect "Sinusoidal Source1.out" Product1.in as Connection3679
+        connect "Corrente RMS1.n_node" S2.a_in as Connection3682
+        connect Junction97 IL4.out as Connection3686
+        connect "Corrente RMS1.p_node" IL4.n_node as Connection3687
+        connect Goto2 Junction97 as Connection3688
+        connect "THD corrente1.in" "THD Measurement2.Out" as Connection3689
+        connect "THD Measurement2.In" Junction97 as Connection3690
+        [
+            breakpoints = 8544, 8696; 8544, 8672; 8544, 8736
+        ]
+        connect IL4.p_node L2_1.n_node as Connection3691
+        connect S2.a_out RL.p_node as Connection3692
+        connect Chave.out S2.ctrl_in as Connection3693
+        connect "Photovoltaic Micro Inverter.InA" Junction98 as Connection3694
+        connect Junction98 Junction94 as Connection3695
+        connect Ref_corrente.in Junction98 as Connection3696
+        connect Amplitude_corrente.out Junction99 as Connection3697
+        connect Junction99 Product1.in1 as Connection3698
+        connect Amp_corrente.in Junction99 as Connection3699
+        connect Junction70 Junction100 as Connection3700
+        connect Junction100 "Rede RMS.p_node" as Connection3701
+        [
+            breakpoints = 9000, 8192; 9000, 8192; 9000, 8192; 9000, 8192; 9000, 8192
+        ]
+        connect Junction69 Junction101 as Connection3703
+        connect Junction101 "Rede RMS.n_node" as Connection3704
+        [
+            breakpoints = 9000, 8280; 9000, 8280; 9000, 8280
+        ]
+        connect L6.n_node Junction102 as Connection3706
+        connect Junction102 Junction100 as Connection3707
+        connect R3.p_node Junction102 as Connection3708
+        connect L4.n_node Junction103 as Connection3709
+        connect Junction103 Junction101 as Connection3710
+        connect R3.n_node Junction103 as Connection3711
+    }
+
+    logically_deleted {
+        "R3"
+        "Junction87"
+        "Junction88"
+        "Junction89"
+        "Junction93"
+        "Connection3628"
+        "Connection3636"
+        "Connection3637"
+        "Connection3638"
+        "Connection3639"
+        "Connection3642"
+        "Connection3643"
+        "Connection3645"
+        "Connection3646"
+        "Connection3647"
+        "Connection3648"
+        "Connection3656"
+        "VBUS"
+        "Connection3668"
+        "Connection3669"
+        "Connection3670"
+        "Connection3671"
+        "L1_1"
+        "L1_2"
+        "L2_1"
+        "L2_2"
+        "C1"
+        "Cd"
+        "Rd"
+        "RL"
+        "Photovoltaic Micro Inverter"
+        "Connection3672"
+        "Product1"
+        "Gain1"
+        "Connection3675"
+        "Junction94"
+        "Connection3676"
+        "Connection3677"
+        "Sinusoidal Source1"
+        "Connection3679"
+        "THD Measurement2"
+        "Goto2"
+        "S2"
+        "Corrente RMS1"
+        "IL4"
+        "THD corrente1"
+        "Junction97"
+        "Connection3682"
+        "Connection3686"
+        "Connection3687"
+        "Connection3688"
+        "Connection3689"
+        "Connection3690"
+        "Connection3691"
+        "Connection3692"
+        "Connection3693"
+        "Chave"
+        "Amplitude_corrente"
+        "Enable"
+        "Junction98"
+        "Connection3694"
+        "Connection3695"
+        "Connection3696"
+        "Ref_corrente"
+        "Junction99"
+        "Connection3697"
+        "Connection3698"
+        "Connection3699"
+        "Amp_corrente"
+        "Connection3708"
+        "Connection3711"
+    }
+
+    default {
+        gen_gain {
+            gain = "1"
+            multiplication = "Element-wise(K.*u)"
+            execution_rate = "inherit"
+        }
+
+        gen_probe {
+            addr = "0"
+            override_signal_name = "False"
+            signal_name = ""
+            signal_type = "generic"
+            streaming_en = "False"
+            streaming_er_idx = "0"
+            execution_rate = "inherit"
+        }
+
+        gen_product {
+            signs = "2"
+            execution_rate = "inherit"
+        }
+
+        pas_capacitor {
+            capacitance = "1e-6"
+            initial_voltage = "0"
+            pole_shift_ignore = "False"
+            visible = "True"
+        }
+
+        pas_inductor {
+            inductance = "1e-3"
+            initial_current = "0.0"
+            pole_shift_ignore = "False"
+            visible = "True"
+        }
+
+        pas_resistor {
+            resistance = "1"
+        }
+
+        src_scada_input {
+            addr = "0"
+            format = "real"
+            override_signal_name = "False"
+            signal_name = ""
+            signal_type = "real"
+            min = "-1e6"
+            max = "1e6"
+            def_value = "0"
+            unit = " "
+            execution_rate = "100e-6"
+        }
+
+        src_sine {
+            amplitude = "1"
+            dc_offset = "0"
+            frequency = "50"
+            phase = "0"
+            execution_rate = "100e-6"
+        }
+
+        src_voltage {
+            sig_input = "False"
+            type = "signal generator"
+            param_set = "1phase"
+            parent_label = ""
+            addr = "0"
+            spc_nb = "0"
+            execution_rate = "100e-6"
+            cpd_visible = "True"
+            enable_snb = "False"
+            snb_type = "R2"
+            R2 = "0.0"
+            L1 = "0.1"
+            override_signal_name = "False"
+            signal_name = ""
+        }
+
+        "core/Single Phase Inverter" {
+            ctrl_src = "Digital input per switch"
+            op_mode = "Fixed carrier frequency"
+            carrier_freq = "10000.0"
+            carr_ph_offset = "[0.0, 180.0]"
+            d_time = "5e-6"
+            ref_sig_min_max = "[-1.0, 1.0]"
+            execution_rate = "inherit"
+            Sa_top = "1"
+            Sa_top_logic = "active high"
+            Sa_bot = "2"
+            Sa_bot_logic = "active high"
+            Sb_top = "3"
+            Sb_top_logic = "active high"
+            Sb_bot = "4"
+            Sb_bot_logic = "active high"
+            show_monitoring = "false"
+            FSM_select = "converter"
+            _control_property = "all high"
+            dtv_flag_en = "True"
+        }
+
+        "core/Voltage RMS" {
+            op_mode = "PLL based"
+            frequency = "50"
+            sig_output = "False"
+            execution_rate = "inherit"
+            feed_forward = "false"
+            nd_msr_estimation = "false"
+        }
+
+        "core/Current Measurement" {
+            bw_limit = "False"
+            frequency = "10e3"
+            comparator_enable = "False"
+            operator = "greater"
+            threshold = "0"
+            cmp_abs_value = "False"
+            feed_forward = "false"
+            sig_output = "False"
+            execution_rate = "100e-6"
+            addr = "0"
+            nd_msr_estimation = "false"
+            dev_cpl_msr = "false"
+            host_device = "0"
+            output_to_device = "0"
+            dev_cpl_index = "0"
+            dev_cpl_var_nb = "0"
+            visible = "True"
+            override_signal_name = "False"
+            signal_name = ""
+        }
+
+        "core/Current RMS" {
+            op_mode = "PLL based"
+            frequency = "50"
+            sig_output = "False"
+            execution_rate = "inherit"
+            feed_forward = "false"
+            nd_msr_estimation = "false"
+        }
+
+        "core/Single Phase Power Meter" {
+            frequency = "50.0"
+            execution_rate = "inherit"
+        }
+
+        "core/Voltage Measurement" {
+            bw_limit = "False"
+            frequency = "10e3"
+            comparator_enable = "False"
+            operator = "greater"
+            threshold = "0"
+            cmp_abs_value = "False"
+            feed_forward = "false"
+            sig_output = "False"
+            execution_rate = "100e-6"
+            addr = "0"
+            nd_msr_estimation = "false"
+            dev_cpl_msr = "false"
+            host_device = "0"
+            output_to_device = "0"
+            dev_cpl_index = "0"
+            dev_cpl_var_nb = "0"
+            visible = "True"
+            override_signal_name = "False"
+            signal_name = ""
+        }
+
+        "core/THD Measurement" {
+            frequency = "50.0"
+            exec_1 = "100e-6"
+            exec_2 = "0.05"
+        }
+
+        "core/Single Pole Single Throw Contactor" {
+            ctrl_src = "Digital input"
+            Sa = "1"
+            Sa_logic = "active high"
+            enable_fb_out = "False"
+            fb_out_type = "real"
+            execution_rate = "inherit"
+            initial_state = "off"
+            on_delay = "0"
+            off_delay = "0"
+            switching = "any current"
+        }
+    }
+
+    CODE model_init
+        # Numpy module is imported as 'np'
+        # Scipy module is imported as 'sp'
+        
+        Iin = 0.625
+        Cin = 0.000414465997635144
+        L1_1 = 9e-005
+        L1_2 = 9e-005
+        C1 = 1e-006
+        Cd = 1e-006
+        L2_1 = 0.0006
+        L2_2 = 0.0006
+        Rd = 15
+        Vrede = 311.126983722081
+        Kci = 0.0523463243997874
+        Tau_i = 0.000404836095326679
+        Ta = 20e-6
+        fa = 50000
+        Ts = 5e-7
+    ENDCODE
+}
