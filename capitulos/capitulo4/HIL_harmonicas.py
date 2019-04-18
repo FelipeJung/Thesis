@@ -12,11 +12,11 @@ plt.rcParams["font.stretch"] = 'normal'
 plt.rcParams["font.size"] = '11'
 
 col_names = ['a0', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10', 'a11', 'a12', 'a13', 'a14', 'a15', 'a16', 'a17', 'a18', 'a19', 'thd_i']
-harmonicas_prop = pandas.read_csv("D:/Users/FELIPE/Documents/Mestrado/dissertacao/testes_pre_experimentais/harmonicas/Prop_FF.csv", sep=',', header=None, names=col_names)
-harmonicas_pi = pandas.read_csv("D:/Users/FELIPE/Documents/Mestrado/dissertacao/testes_pre_experimentais/harmonicas/PI+FF.csv", sep=',', header=None, names=col_names)
-harmonicas_pr = pandas.read_csv("D:/Users/FELIPE/Documents/Mestrado/dissertacao/testes_pre_experimentais/harmonicas/PR+FF.csv", sep=',', header=None, names=col_names)
-harmonicas_mr = pandas.read_csv("D:/Users/FELIPE/Documents/Mestrado/dissertacao/testes_pre_experimentais/harmonicas/MR+FF.csv", sep=',', header=None, names=col_names)
-harmonicas_rep = pandas.read_csv("D:/Users/FELIPE/Documents/Mestrado/dissertacao/testes_pre_experimentais/harmonicas/rep+FF.csv", sep=',', header=None, names=col_names)
+harmonicas_prop = pandas.read_csv("D:/Users/FELIPE/Documents/Mestrado/dissertacao/capitulos/capitulo4/harmonicas/Prop_FF.csv", sep=',', header=None, names=col_names)
+harmonicas_pi = pandas.read_csv("D:/Users/FELIPE/Documents/Mestrado/dissertacao/capitulos/capitulo4/harmonicas/PI+FF.csv", sep=',', header=None, names=col_names)
+harmonicas_pr = pandas.read_csv("D:/Users/FELIPE/Documents/Mestrado/dissertacao/capitulos/capitulo4/harmonicas/PR+FF.csv", sep=',', header=None, names=col_names)
+harmonicas_mr = pandas.read_csv("D:/Users/FELIPE/Documents/Mestrado/dissertacao/capitulos/capitulo4/harmonicas/MR+FF.csv", sep=',', header=None, names=col_names)
+harmonicas_rep = pandas.read_csv("D:/Users/FELIPE/Documents/Mestrado/dissertacao/capitulos/capitulo4/harmonicas/rep+FF.csv", sep=',', header=None, names=col_names)
 
 
 thd_prop = np.mean(np.array(harmonicas_prop['thd_i']))
@@ -156,25 +156,57 @@ rep = [100*a/a1_rep for a in rep]
 
 std_harm = np.arange(2, 21)
 std_amp = np.array([1, 4, 1, 4, 1, 4, 1, 4, 0.5, 2, 0.5, 2, 0.5, 2, 0.5, 1.5, 0.5, 1.5, 0.5])
-plt.figure()
+fig = plt.figure()
+a = fig.add_subplot(111)
 plt.ylabel("Amplitude (%)")
 plt.xlabel("Harmonic Nbr")
 width = 0.8
 plt.bar(std_harm, std_amp, width, label='Standard', color='0.75')
-plt.plot(std_harm, prop, 'o:', label='Prop', color='k')
+plt.plot(std_harm, prop, 'o-', label='Prop', color='k')
 plt.plot(std_harm, pi, 'o:', label='PI', color='m')
 plt.plot(std_harm, pr, 'o:', label='PR', color='r')
 plt.plot(std_harm, rep, 'o:', label='Rep', color='b')
 plt.plot(std_harm, mr, 'o-', label='PI+MR 15h', color='g', LineWidth=3)
 
 legend = plt.legend(loc='best', shadow=True, fontsize='9')
-#plt.set(title='Control without feedforward - Harmonics')
+a.set(xlim=[1.5, 19.5], ylim=[0, 6.5])
 plt.tight_layout()
-plt.show()
+# plt.savefig('harmonics_cFF.png', dpi=1000)
 
-THD_soma = 0
+thd_p_s = 0
+thd_pi_s = 0
+thd_pr_s = 0
+thd_mr_s = 0
+thd_rep_s = 0
 for k in prop:
-    THD_soma += k*k/10000
-THD_p = 100*math.sqrt(THD_soma)
+    thd_p_s += k*k/10000
+for k in pi:
+    thd_pi_s += k*k/10000
+for k in pr:
+    thd_pr_s += k*k/10000
+for k in mr:
+    thd_mr_s += k*k/10000
+for k in rep:
+    thd_rep_s += k*k/10000
+thd_p = 100*math.sqrt(thd_p_s)
+thd_pi = 100*math.sqrt(thd_pi_s)
+thd_pr = 100*math.sqrt(thd_pr_s)
+thd_mr = 100*math.sqrt(thd_mr_s)
+thd_rep = 100*math.sqrt(thd_rep_s)
 
-print(THD_p, thd_prop)
+
+thd_ = np.arange(1, 6)
+thd = [thd_p, thd_pi, thd_pr, thd_mr, thd_rep]
+std = [5 for k in range(len(std_harm))]
+print(thd)
+fig = plt.figure()
+harm = fig.add_subplot(111)
+plt.ylabel("Amplitude (%)")
+plt.grid(False)
+plt.bar(thd_, thd, color='m')
+plt.plot(std_harm-5, std, 'o-', color='k', lineWidth=2, label='5%')
+# legend = plt.legend(loc='best', shadow=True, fontsize='9')
+harm.set(xlim=[0.5, 5.5], ylim=[0, 15])
+# plt.savefig('THD_cFF.png', dpi=1000)
+print(a3_prop/a1_prop)
+plt.show()
